@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        @if (authService.currentUser()) {
+          <li class="nav-item">
+            <small class="nav-link">Bienvenido {{authService.currentUser()}}</small>
+          </li>
+        }
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+        @if (authService.currentUser()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/pets">Mascotas</a>
+          </li>
+        }
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" routerLink="/products">Products</a></li>
+            <li><a class="nav-link" routerLink="/animals">Animales</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          @if (authService.currentUser()) {
+            <button class="nav-link" (click)="authService.logout()">Logout</button>
+            } @else {
+            <a routerLink="/login" class="nav-link">Log In</a>
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

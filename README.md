@@ -57,3 +57,37 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+📌 En Angular Cookbook usa:
+
+✔ Interfaces
+
+API responses
+
+DTOs
+
+Forms
+
+Lists
+
+Inputs
+
+✔ Clases
+
+Dominio
+
+Lógica
+
+Métodos
+
+Encapsulación real
+
+✔ NO mezclar sin motivo
+✔ NO hacer todo con clases
+✔ NO hacer lógica en interfaces
+
+7️⃣ Regla de oro (guárdala)
+
+Si el objeto “solo tiene datos” → Interface
+Si el objeto “hace algo” → Clase
