@@ -1,0 +1,91 @@
+<div class="container py-3 mt-3 bg-light-subtle">
+  <a routerLink="/animals" class="btn btn-secondary mb-3">Volver a la lista</a>
+  @if (loading()) {
+    <div class="container text-center alert alert-info">Cargando detalles del animal...</div>
+  } @else {
+    @if (animal(); as animal) {
+      <h2 class="text-center">{{animal.name}} - {{animal.id}} {{isEditing() ? '(Editando)' : ''}}</h2>
+      <form (submit)="onUpdate()" [formGroup]="animalForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" formControlName="name" id="name">
+          @if (animalForm.get('name')?.invalid && animalForm.get('name')?.touched) {
+            <small class="text-danger">Nombre obligatorio</small>
+          }
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea formControlName="description" id="description" class="form-control"></textarea>
+            @if (animalForm.get('description')?.invalid && animalForm.get('description')?.touched) {
+              <small class="text-danger">Descripción obligatoria</small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="specie" class="form-label">Especie</label>
+            <input type="text" formControlName="specie" id="specie" class="form-control">
+            @if (animalForm.get('specie')?.invalid && animalForm.get('specie')?.touched) {
+              <small class="text-danger">Especie obligatoria</small>
+            }
+          </div>
+          <div>
+            <label for="lifetime" class="form-label">Tiempo de vida</label>
+            <input type="number" formControlName="lifetime" id="lifetime" class="form-control">
+            @if (animalForm.get('lifetime')?.invalid && animalForm.get('lifetime')?.touched) {
+              <small class="text-danger">Tiempo de vida obligatorio</small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="lifetimeUnit" class="form-label">Unidad tiempo de vida</label>
+            <select formControlName="lifetimeUnit" id="lifetimeUnit" class="form-select">
+              <option value="0">Año</option>
+              <option value="1">Mes</option>
+              <option value="2">Dia</option>
+              <option value="3">Hora</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="diet" class="form-label">Dieta</label>
+            <select formControlName="diet" id="diet" class="form-select">
+              <option value="0">Herviboro</option>
+              <option value="1">carniboro</option>
+              <option value="2">Omniboro</option>
+            </select>
+          </div>
+        </div>
+
+        @if (!isEditing()) {
+          <button (click)="toggleEdit()" type="button" class="btn m-2 btn-outline-primary">
+            Editar
+          </button>
+        }
+        @if (isEditing()) {
+          <button type="submit" class="btn btn-outline-success" [disabled]="animalForm.invalid || !isEditing()">
+            Guardar
+          </button>
+          <button (click)="cancelEdit()" type="button" class="btn m-2 btn-outline-danger">
+            Cancelar
+          </button>
+        }
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAnimalModal">
+          Eliminar
+        </button>
+        <!-- Modal -->
+         <div class="modal fade" id="deleteAnimalModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  ¿Estás seguro de eliminar éste registro? (Animal {{animal.name}})
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-danger" (click)="onDelete()">Eliminar</button>
+                </div>
+              </div>
+            </div>
+         </div>
+        <!-- Modal -->
+      </form>
+    } @else {
+      <div class="container text-center alert alert-danger">No se encontró el animal.</div>
+    }
+  }
+</div>
