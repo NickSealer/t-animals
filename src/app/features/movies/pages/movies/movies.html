@@ -1,0 +1,10 @@
+@if (favMovie.length > 1) {
+  <span class="alert alert-success py-3">Tu película favorita, {{username}}, es: {{favMovie}}</span>
+}
+<div class="card mt-3">
+  <ol class="list-group">
+    @for (movie of movies; track movie.id) {
+      <li (click)="favoriteMovie(movie.name)" class="list-group-item">{{movie.infoFicha}} -- {{movie.releasedYear}}</li>
+    }
+  </ol>
+</div>
