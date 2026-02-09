@@ -1,0 +1,28 @@
+<h2 class="text-center">Tabla de mascotas</h2>
+
+<table class="table table-hover table-responsive table-info">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Specie</th>
+      <th>Info</th>
+      <th>Age</th>
+      <th>Tiene dueño?</th>
+      <th>Color</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (pet of pets; track pet.id) {
+      <tr>
+        <td>{{pet.name}}</td>
+        <td>{{pet.specie}}</td>
+        <td>{{pet.fullDescription}}</td>
+        <td>{{pet.age}} - del {{pet.birthYear}}</td>
+        <td style="cursor: pointer;" (click)="toggleOwned(pet)">{{pet.owned ? 'Sí' : 'No'}}</td>
+        <td>{{pet.color}}</td>
+      </tr>
+    } @empty {
+      <p>No hay mascotas aún</p>
+    }
+  </tbody>
+</table>
