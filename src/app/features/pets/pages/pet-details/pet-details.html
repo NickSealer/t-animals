@@ -1,0 +1,89 @@
+<div class="container py-3 bg-light-subtle">
+  <a routerLink="/pets" class="btn btn-secondary mb-3">Volver</a>
+  @if (loading()) {
+    <div class="container text-center alert alert-info">Cargando...</div>
+  } @else {
+    @if (pet(); as pet) {
+      <h2 class="text-center">{{pet.name}} - {{pet.id}} {{isEditing() ? '(Editando)' : ''}}</h2>
+      <form (submit)="onUpdate()" [formGroup]="petForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" formControlName="name" id="name">
+          @if (petForm.get('name')?.invalid && petForm.get('name')?.touched) {
+            <small class="text-danger">Nombre obligatorio</small>
+          }
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <textarea formControlName="description" id="description" class="form-control"></textarea>
+            @if (petForm.get('description')?.invalid && petForm.get('description')?.touched) {
+              <small class="text-danger">Descripción obligatoria</small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="specie" class="form-label">Especie</label>
+            <input type="text" formControlName="specie" id="specie" class="form-control">
+            @if (petForm.get('specie')?.invalid && petForm.get('specie')?.touched) {
+              <small class="text-danger">Especie obligatoria</small>
+            }
+          </div>
+          <div>
+            <label for="lifetime" class="form-label">Tiempo de vida</label>
+            <input type="number" formControlName="lifetime" id="lifetime" class="form-control">
+            @if (petForm.get('lifetime')?.invalid && petForm.get('lifetime')?.touched) {
+              <small class="text-danger">Tiempo de vida obligatorio</small>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="lifetimeUnit" class="form-label">Unidad tiempo de vida</label>
+            <select formControlName="lifetimeUnit" id="lifetimeUnit" class="form-select">
+              <option value="0">Año</option>
+              <option value="1">Mes</option>
+              <option value="2">Dia</option>
+              <option value="3">Hora</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="diet" class="form-label">Dieta</label>
+            <select formControlName="diet" id="diet" class="form-select">
+              <option value="0">Herviboro</option>
+              <option value="1">carniboro</option>
+              <option value="2">Omniboro</option>
+            </select>
+          </div>
+        </div>
+
+        @if (!isEditing()) {
+          <button class="btn m-2 btn-outline-primary" type="button" (click)="toggleEdit()">Editar</button>
+        }
+        @if (isEditing()) {
+          <button type="submit" class="btn btn-outline-success" [disabled]="petForm.invalid || !isEditing()">Guardar</button>
+          <button (click)="cancelEdit()" type="button" class="btn m-2 btn-outline-danger">Cancelar</button>
+        }
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePetModal">Eliminar</button>
+        
+      </form>
+
+      <div class="modal fade" id="deletePetModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              ¿Está seguro de eliminar de la base de datos a la mascota {{pet.name}}?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" (click)="onDelete()">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <small>Creado: {{pet.createAt}}</small><br>
+        <small>Actualizado: {{pet.updatedAt}}</small><br>
+        <small>Por: {{pet.userId || 'Anónimo'}}</small>
+      </div>
+    } @else {
+      <div class="container text-center alert alert-danger">No se encontró la mascota con ID {{id()}}.</div>
+    }
+  }
+</div>
