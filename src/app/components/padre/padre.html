@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <h1>CP</h1>
+  <hr>
+  <app-hijo [showActions]="true" [records]="records()" [customActions]="customActions()" [plantilla]="idCard" (execAction)="processAction($event)"></app-hijo>
+</div>
+
+<ng-template class="card" #idCard let-local let-roles="totalRoles">
+  <h3>{{title}}</h3>
+  <p>Estado: {{state()}}</p>
+  <p>Raiz: {{root()}}</p>
+  <p>{{local()}}</p>
+  <p>{{roles}}</p>
+</ng-template>

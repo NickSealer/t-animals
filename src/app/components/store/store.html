@@ -1,0 +1,30 @@
+<div class="mt-3 bg-light py-3 text-center">
+  <h2>Lista de productos</h2>
+  <div class="d-flex mx-auto justify-content-center">
+    <div class="mb-3 m-1">
+      <label for="name" class="form-label">Producto</label>
+      <input type="text" name="name" id="name" #name class="form-control">
+    </div>
+    <div class="mb-3 m-1">
+      <label for="price" class="form-label">Precio</label>
+      <input type="text" name="price" id="price" #price class="form-control">
+    </div>
+     <button type="button" class="btn btn-success" (click)="addProduct(name.value, price.value)">Agregar</button>
+  </div>
+  <table class="w-10 table">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of products; track p.name) {
+        <tr>
+          <td>{{p.name}}</td>
+          <td>{{p.price}}</td>  
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

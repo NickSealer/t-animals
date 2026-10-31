@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <h2>Componente Hijo</h2>
+
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <th>Actions</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Active</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (r of records(); track r['id']) {
+        <tr>
+          <td>
+          @if (showActions()) {
+            @for (i of customActions(); track i.title) {
+              <button type="button" title="{{i.action}}" class="{{i.class}}" (click)="onActionClick(i.action, r['id'])">
+                {{i.title}}
+              </button>
+            }
+          }
+          </td>
+          <td>{{r['id']}}</td>
+          <td>{{r['name']}}</td>  
+          <td>{{r['active']}}</td>  
+        </tr>
+      }
+      </tbody>
+    </table>
+
+  @if (plantilla()) {
+    <h1>Renderiza plantilla padre</h1>
+    <ng-container *ngTemplateOutlet="plantilla(); context: { $implicit: local, totalRoles: 4 }">
+      plantilla()
+    </ng-container>
+  }
+</div>

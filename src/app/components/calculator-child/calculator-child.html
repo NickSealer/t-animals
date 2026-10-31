@@ -1,0 +1,14 @@
+<div class="d-flex mx-auto w-10 justify-content-center">
+      <div class="mb-3 m-1">
+        <label for="val1" class="form-label">Valor 1:</label>
+        <input type="text" id="val3" name="val3" class="form-control" [(ngModel)]="val1">
+      </div>
+      <div class="mb-3 m-1">
+        <label for="val2" class="form-label">Valor 2:</label>
+        <input type="text" id="val4" name="val4" class="form-control" [(ngModel)]="val2">
+      </div>
+    </div>
+
+<div class="mt-3 d-flex justify-content-center mx-auto">
+  <button type="button" class="btn btn-primary m-1" (click)="sum()">Suma</button>
+</div>

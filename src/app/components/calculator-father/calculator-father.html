@@ -1,0 +1,9 @@
+<div class="mt-3 bg-light py-3">
+  <h1 class="text-center">Calculadora Input/Output</h1>
+  <p>Ingresa 2 valores para sumar</p>
+  <div class="card">
+    <app-calculator-child (result)="getResult($event)"></app-calculator-child>
+  </div>
+
+  <app-calculator-result [result]="result"/>
+</div>
